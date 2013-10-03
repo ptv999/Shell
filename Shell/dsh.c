@@ -54,7 +54,7 @@ void spawn_job(job_t *j, bool fg)
 	process_t *p;
 
 	for(p = j->first_process; p; p = p->next) {
-
+        int i=0;
 	  /* YOUR CODE HERE? */
 	  /* Builtin commands are already taken care earlier */
 	  
