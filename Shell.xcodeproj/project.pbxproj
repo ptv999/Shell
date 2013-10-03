@@ -7,8 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB391EA617FCF96A007EA4E1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = AB391EA517FCF96A007EA4E1 /* main.c */; };
-		AB391EA817FCF96A007EA4E1 /* Shell.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB391EA717FCF96A007EA4E1 /* Shell.1 */; };
+		ABC0560F17FCFA8C005BE8DE /* dsh.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC055FF17FCFA8C005BE8DE /* dsh.c */; };
+		ABC0561017FCFA8C005BE8DE /* forkexample.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560317FCFA8C005BE8DE /* forkexample.c */; };
+		ABC0561117FCFA8C005BE8DE /* forkexample2.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560417FCFA8C005BE8DE /* forkexample2.c */; };
+		ABC0561217FCFA8C005BE8DE /* infinite.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560517FCFA8C005BE8DE /* infinite.c */; };
+		ABC0561317FCFA8C005BE8DE /* infinite2.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560617FCFA8C005BE8DE /* infinite2.c */; };
+		ABC0561417FCFA8C005BE8DE /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560717FCFA8C005BE8DE /* Makefile */; };
+		ABC0561517FCFA8C005BE8DE /* mysignal.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560817FCFA8C005BE8DE /* mysignal.c */; };
+		ABC0561617FCFA8C005BE8DE /* hello.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560917FCFA8C005BE8DE /* hello.c */; };
+		ABC0561717FCFA8C005BE8DE /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560A17FCFA8C005BE8DE /* helper.c */; };
+		ABC0561817FCFA8C005BE8DE /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560B17FCFA8C005BE8DE /* Makefile */; };
+		ABC0561917FCFA8C005BE8DE /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560C17FCFA8C005BE8DE /* parse.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +27,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				AB391EA817FCF96A007EA4E1 /* Shell.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -26,8 +34,24 @@
 
 /* Begin PBXFileReference section */
 		AB391EA217FCF96A007EA4E1 /* Shell */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Shell; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB391EA517FCF96A007EA4E1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		AB391EA717FCF96A007EA4E1 /* Shell.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Shell.1; sourceTree = "<group>"; };
+		ABC055FC17FCFA8C005BE8DE /* batchFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = batchFile; sourceTree = "<group>"; };
+		ABC055FD17FCFA8C005BE8DE /* dsh */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = dsh; sourceTree = "<group>"; };
+		ABC055FE17FCFA8C005BE8DE /* dsh-example */ = {isa = PBXFileReference; lastKnownFileType = file; path = "dsh-example"; sourceTree = "<group>"; };
+		ABC055FF17FCFA8C005BE8DE /* dsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dsh.c; sourceTree = "<group>"; };
+		ABC0560017FCFA8C005BE8DE /* dsh.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = dsh.dSYM; sourceTree = "<group>"; };
+		ABC0560117FCFA8C005BE8DE /* dsh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dsh.h; sourceTree = "<group>"; };
+		ABC0560317FCFA8C005BE8DE /* forkexample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = forkexample.c; sourceTree = "<group>"; };
+		ABC0560417FCFA8C005BE8DE /* forkexample2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = forkexample2.c; sourceTree = "<group>"; };
+		ABC0560517FCFA8C005BE8DE /* infinite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = infinite.c; sourceTree = "<group>"; };
+		ABC0560617FCFA8C005BE8DE /* infinite2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = infinite2.c; sourceTree = "<group>"; };
+		ABC0560717FCFA8C005BE8DE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		ABC0560817FCFA8C005BE8DE /* mysignal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mysignal.c; sourceTree = "<group>"; };
+		ABC0560917FCFA8C005BE8DE /* hello.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hello.c; sourceTree = "<group>"; };
+		ABC0560A17FCFA8C005BE8DE /* helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = helper.c; sourceTree = "<group>"; };
+		ABC0560B17FCFA8C005BE8DE /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		ABC0560C17FCFA8C005BE8DE /* parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parse.c; sourceTree = "<group>"; };
+		ABC0560D17FCFA8C005BE8DE /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		ABC0560E17FCFA8C005BE8DE /* README.CONTENTS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.CONTENTS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,8 +68,8 @@
 		AB391E9917FCF96A007EA4E1 = {
 			isa = PBXGroup;
 			children = (
-				AB391EA417FCF96A007EA4E1 /* Shell */,
 				AB391EA317FCF96A007EA4E1 /* Products */,
+				AB391EA417FCF96A007EA4E1 /* Shell */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,10 +84,34 @@
 		AB391EA417FCF96A007EA4E1 /* Shell */ = {
 			isa = PBXGroup;
 			children = (
-				AB391EA517FCF96A007EA4E1 /* main.c */,
-				AB391EA717FCF96A007EA4E1 /* Shell.1 */,
+				ABC055FC17FCFA8C005BE8DE /* batchFile */,
+				ABC055FD17FCFA8C005BE8DE /* dsh */,
+				ABC055FE17FCFA8C005BE8DE /* dsh-example */,
+				ABC055FF17FCFA8C005BE8DE /* dsh.c */,
+				ABC0560017FCFA8C005BE8DE /* dsh.dSYM */,
+				ABC0560117FCFA8C005BE8DE /* dsh.h */,
+				ABC0560217FCFA8C005BE8DE /* fork-examples */,
+				ABC0560917FCFA8C005BE8DE /* hello.c */,
+				ABC0560A17FCFA8C005BE8DE /* helper.c */,
+				ABC0560B17FCFA8C005BE8DE /* Makefile */,
+				ABC0560C17FCFA8C005BE8DE /* parse.c */,
+				ABC0560D17FCFA8C005BE8DE /* README */,
+				ABC0560E17FCFA8C005BE8DE /* README.CONTENTS */,
 			);
 			path = Shell;
+			sourceTree = "<group>";
+		};
+		ABC0560217FCFA8C005BE8DE /* fork-examples */ = {
+			isa = PBXGroup;
+			children = (
+				ABC0560317FCFA8C005BE8DE /* forkexample.c */,
+				ABC0560417FCFA8C005BE8DE /* forkexample2.c */,
+				ABC0560517FCFA8C005BE8DE /* infinite.c */,
+				ABC0560617FCFA8C005BE8DE /* infinite2.c */,
+				ABC0560717FCFA8C005BE8DE /* Makefile */,
+				ABC0560817FCFA8C005BE8DE /* mysignal.c */,
+			);
+			path = "fork-examples";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,7 +165,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB391EA617FCF96A007EA4E1 /* main.c in Sources */,
+				ABC0560F17FCFA8C005BE8DE /* dsh.c in Sources */,
+				ABC0561017FCFA8C005BE8DE /* forkexample.c in Sources */,
+				ABC0561117FCFA8C005BE8DE /* forkexample2.c in Sources */,
+				ABC0561217FCFA8C005BE8DE /* infinite.c in Sources */,
+				ABC0561317FCFA8C005BE8DE /* infinite2.c in Sources */,
+				ABC0561417FCFA8C005BE8DE /* Makefile in Sources */,
+				ABC0561517FCFA8C005BE8DE /* mysignal.c in Sources */,
+				ABC0561617FCFA8C005BE8DE /* hello.c in Sources */,
+				ABC0561717FCFA8C005BE8DE /* helper.c in Sources */,
+				ABC0561817FCFA8C005BE8DE /* Makefile in Sources */,
+				ABC0561917FCFA8C005BE8DE /* parse.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +274,7 @@
 				AB391EAD17FCF96A007EA4E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
