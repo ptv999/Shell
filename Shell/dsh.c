@@ -11,7 +11,7 @@ int set_child_pgid(job_t *j, process_t *p)
         j->pgid = p->pid;
     return(setpgid(p->pid,j->pgid));
 }
-//hi
+
 /* Creates the context for a new child by setting the pid, pgid and tcsetpgrp */
 void new_child(job_t *j, process_t *p, bool fg)
 {
