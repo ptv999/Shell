@@ -18,7 +18,7 @@ int main() {
 	}
 	else if(pID < 0) { //failed to fork
 		printf("Failed to fork\n");
-		exit(1); 
+		exit(1);
 	}
 	else {		//parent
 		//Code only executed by parent process

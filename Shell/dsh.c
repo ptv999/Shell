@@ -127,8 +127,15 @@ bool builtin_cmd(job_t *last_job, int argc, char **argv)
 /* Build prompt messaage */
 char* promptmsg() 
 {
-    /* Modify this to include pid */
-	return "dsh$ ";
+    char *pid_string = malloc(20);
+    int pid = (int) getpid();
+    sprintf(pid_string, "%d", pid);
+    char* prompt_msg = malloc(40);
+    strcpy(prompt_msg, "dsh-");
+    strcat(prompt_msg, pid_string);
+    strcat(prompt_msg, "$");
+    strcat(prompt_msg,"\0");
+	return prompt_msg;
 }
 
 int main() 
