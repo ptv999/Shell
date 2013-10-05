@@ -36,7 +36,8 @@ void new_child(job_t *j, process_t *p, bool fg)
          /* Set the handling for job control signals back to the default. */
          signal(SIGTTOU, SIG_DFL);
 }
-/*test change
+
+/*test change*/
 /* Spawning a process with job control. fg is true if the 
  * newly-created process is to be placed in the foreground. 
  * (This implicitly puts the calling process in the background, 
@@ -98,6 +99,11 @@ void continue_job(job_t *j)
  * builtin_cmd - If the user has typed a built-in command then execute
  * it immediately.  
  */
+
+bool fg(job_t* j){
+    return true;
+}
+
 bool builtin_cmd(job_t *last_job, int argc, char **argv) 
 {
 
@@ -106,20 +112,22 @@ bool builtin_cmd(job_t *last_job, int argc, char **argv)
 
         if (!strcmp(argv[0], "quit")) {
             /* Your code here */
+            stdin = 0;
             exit(EXIT_SUCCESS);
 	}
         else if (!strcmp("jobs", argv[0])) {
-            /* Your code here */
+            print_job(last_job);
             return true;
         }
         else if (!strcmp("cd", argv[0])) {
             /* Your code here */
+        return true;
         }
         else if (!strcmp("bg", argv[0])) {
-            /* Your code here */
+            return true;
         }
         else if (!strcmp("fg", argv[0])) {
-            /* Your code here */
+            return true;
         }
         return false;       /* not a builtin command */
 }
@@ -138,9 +146,19 @@ char* promptmsg()
 	return prompt_msg;
 }
 
+void redirect_input(process_t* p){
+    char* fileName = p->ifile;
+    int stdinput = open(j.)
+
+    close(stdin);
+    int p_argc = p->argc;
+    char** p_argv = p->argv;
+    int stdin = open(fileName, p_argc, p_argv);
+    
+}
+
 int main() 
 {
-
 	init_dsh();
 	DEBUG("Successfully initialized\n");
 
@@ -157,15 +175,23 @@ int main()
 
         /* Only for debugging purposes to show parser output; turn off in the
          * final code */
-        if(PRINT_INFO) print_job(j);
+        //if(PRINT_INFO) print_job(j);
 
         /* Your code goes here */
         /* You need to loop through jobs list since a command line can contain ;*/
-        /* Check for built-in commands */
-        /* If not built-in */
-            /* If job j runs in foreground */
-            /* spawn_job(j,true) */
-            /* else */
-            /* spawn_job(j,false) */
+        while(j!=NULL){
+            if(!builtin_cmd(j, j->first_process->argc, j->first_process->argv)){
+                if(fg(j)){
+                    spawn_job(j, true);
+                }
+                else{
+                    spawn_job(j, false);
+                }
+            }
+            /*else{
+                while(
+            }*/
+            j = j->next;
+        }
     }
 }
