@@ -67,7 +67,10 @@ void spawn_job(job_t *j, bool fg)
           case 0: /* child process  */
             p->pid = getpid();	    
             new_child(j, p, fg);
-            
+              
+            execvp(p->argv[0], p->argv);
+            seize_tty(p->pid);
+              
 	    /* YOUR CODE HERE?  Child-side code for new process. */
             perror("New child should have done an exec");
             exit(EXIT_FAILURE);  /* NOT REACHED */
@@ -77,10 +80,10 @@ void spawn_job(job_t *j, bool fg)
             /* establish child process group */
             p->pid = pid;
             set_child_pgid(j, p);
-
             /* YOUR CODE HERE?  Parent-side code for new process.  */
+            wait((int) pid);
+            
           }
-
             /* YOUR CODE HERE?  Parent-side code for new job.*/
 	    seize_tty(getpid()); // assign the terminal back to dsh
 
@@ -146,7 +149,7 @@ char* promptmsg()
 	return prompt_msg;
 }
 
-void redirect_input(process_t* p){
+/*void redirect_input(process_t* p){
     char* fileName = p->ifile;
     int stdinput = open(j.)
 
@@ -155,7 +158,7 @@ void redirect_input(process_t* p){
     char** p_argv = p->argv;
     int stdin = open(fileName, p_argc, p_argv);
     
-}
+}*/
 
 int main() 
 {
