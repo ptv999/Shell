@@ -112,7 +112,7 @@ bool builtin_cmd(job_t *last_job, int argc, char **argv)
             /* Your code here */
             return true;
         }
-	else if (!strcmp("cd", argv[0])) {
+        else if (!strcmp("cd", argv[0])) {
             /* Your code here */
         }
         else if (!strcmp("bg", argv[0])) {
