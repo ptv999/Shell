@@ -50,7 +50,6 @@ void new_child(job_t *j, process_t *p, bool fg)
 
 void spawn_job(job_t *j, bool fg) 
 {
-
 	pid_t pid;
 	process_t *p;
 
@@ -117,7 +116,7 @@ bool builtin_cmd(job_t *last_job, int argc, char **argv)
             /* Your code here */
             stdin = 0;
             exit(EXIT_SUCCESS);
-	}
+        }
         else if (!strcmp("jobs", argv[0])) {
             print_job(last_job);
             return true;
