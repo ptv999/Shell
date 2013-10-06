@@ -117,7 +117,7 @@ void continue_job(job_t *j)
  * it immediately.  
  */
 
-bool fg(job_t* j){
+bool fg(int pid){
     return true;
 }
 
