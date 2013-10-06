@@ -9,7 +9,10 @@
 #include <stdio.h>
 int main(){
     int num = 0;
+    int x = 0;
     while(scanf("%d", &num) != EOF){
         printf("number is %d\n",num);
+        x+=num;
     }
+    printf("%i",x);
 }
