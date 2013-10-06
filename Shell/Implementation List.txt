@@ -10,9 +10,9 @@ pipes
 
 Implemented, untested:
 
+
 input output redirection
-spawn_jobs (fix how 2nd job doesn't work)
-jobs
+
 
 
 Implemented, tested:
@@ -20,3 +20,5 @@ Implemented, tested:
 promptmsg() shows PID
 quit
 cd
+jobs
+spawn_jobs

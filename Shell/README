@@ -8,15 +8,11 @@
 
 	Name1: Shariq Iqbal
 	NetId1: sni
-	Time spent: 10 hours 	// Edit 
+	Time spent: 22 hours
 
 	Name2: Duke Kim
 	NetId2: dk116
-	Time spent: 10 hours 	// Edit 
-
-	Name3: Full Name 	// Edit this accordingly
-	NetId3: fn	 	// Edit
-	Time spent: 10 hours 	// Edit 
+	Time spent: 22 hours
 
 /******************
  * Files to submit
@@ -45,6 +41,9 @@
  * In case of lab is limited in some functionality, you should provide the
  * details to maximize your partial credit.  
  * */
+ 
+ Our implementation of pipelines is placed within our spawn_jobs function.  At the top of each process (in our loop) we check if.
+ 
 
 /************************
  * Feedback on the lab
@@ -54,6 +53,10 @@
  * Any comments/questions/suggestions/experiences that you would help us to
  * improve the lab.
  * */
+ 
+ Too much to implement/what we need to do is sometimes unclear.
+ More implementation examples of pipe() would have been useful.
+ 
 
 /************************
  * References
@@ -62,3 +65,8 @@
 /*
  * List of collaborators involved including any online references/citations.
  * */
+ 
+ http://codewiki.wikidot.com/
+ http://stackoverflow.com/
+ http://linux.die.net/man/
+ 

@@ -60,7 +60,6 @@ void spawn_job(job_t *j, bool fg)
         /* Builtin commands are already taken care earlier */
         int input_fd = -1; //input_fd will have value -1 upon completion of switch if there is no input file
         int output_fd = -1; //similar as input_fd but for output
-<<<<<<< HEAD
 	  switch (pid = fork()) {
               
           case -1: /* fork failure */
@@ -100,7 +99,6 @@ void spawn_job(job_t *j, bool fg)
             p->stopped = false;
           }
                     /* YOUR CODE HERE?  Parent-side code for new job.*/
-=======
         switch (pid = fork()) {
                 
             case -1: /* fork failure */
@@ -141,7 +139,6 @@ void spawn_job(job_t *j, bool fg)
                 p->stopped = false;
         }
         /* YOUR CODE HERE?  Parent-side code for new job.*/
->>>>>>> 139f70651e74cbf5f737e7fcdfd1e6e4f1251b80
 	    seize_tty(getpid()); // assign the terminal back to dsh
         
 	}
