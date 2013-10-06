@@ -14,5 +14,5 @@ int main(){
         printf("number is %d\n",num);
         x+=num;
     }
-    printf("%i",x);
+    printf("%d",145);
 }

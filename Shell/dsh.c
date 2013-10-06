@@ -53,29 +53,54 @@ void spawn_job(job_t *j, bool fg)
 {
 	pid_t pid;
 	process_t *p;
-    
-    
+    bool prev_cmd_exists = false;
+    int fd[2] = {0,0};
+    int fdcopy[2] = {0,0};
 	for(p = j->first_process; p; p = p->next) {
         /* YOUR CODE HERE? */
         /* Builtin commands are already taken care earlier */
         int input_fd = -1; //input_fd will have value -1 upon completion of switch if there is no input file
         int output_fd = -1; //similar as input_fd but for output
+        /*if there is an ofile, then it cannot pipe to the next process, since the process will always write everything
+         to the outfile. Additionally, if there is no next process, then it cannot pipe*/
+        if(p->ofile == NULL && p->next != NULL){
+            fdcopy[0] = fd[0];
+            fdcopy[1] = fd[1];
+            pipe(fd);
+            dup2(STDOUT_FILENO, fd[1]);
+            //dup2(fd[1],0);
+        }
+
         switch (pid = fork()) {
-                
+            
             case -1: /* fork failure */
                 perror("fork");
                 exit(EXIT_FAILURE);
             case 0: /* child process  */
                 p->pid = getpid();
                 new_child(j, p, fg);
-                seize_tty(p->pid);
+                //seize_tty(p->pid);
+                if(endswith(p->argv[0], ".c")){
+                    char** args = malloc(3);
+                    args[0] = "-o";
+                    args[1] = "devil";
+                    char* filename = "";
+                    strcat(filename, "/");
+                    strcat(filename, p->argv[0]);
+                    args[2] = filename;
+                    p->argv[0] = "devil";
+                    execvp("/usr/bin/gcc", args);
+                }
                 if(p->ifile!=NULL){
                     input_fd = redirect_input(p);
                 }
                 if(p->ofile!=NULL){
                     output_fd = redirect_output(p);
                 }
-                
+                if(p->ifile == NULL && prev_cmd_exists){
+                    dup2(fdcopy[0],STDIN_FILENO);
+                }
+                prev_cmd_exists = true;
                 execvp(p->argv[0], p->argv);
                 
                 /* YOUR CODE HERE?  Child-side code for new process. */
@@ -87,15 +112,18 @@ void spawn_job(job_t *j, bool fg)
             default: /* parent */
                 /* establish child process group */
                 p->pid = pid;
+                printf("%d\n", pid);
                 set_child_pgid(j, p);
+                
                 /* YOUR CODE HERE?  Parent-side code for new process.  */
-                wait((int) pid);
+                wait(&pid);
                 if(input_fd!=-1){
                     dup2(0,input_fd); //redirects input back to what it was before switches
                 }
                 if(output_fd!=-1){
                     dup2(1,output_fd); //redirects output back to what it was before switches
                 }
+                
                 p->completed = true;
                 p->stopped = false;
         }
@@ -118,7 +146,7 @@ void continue_job(job_t *j)
  * it immediately.
  */
 
-bool fg(int pid){
+bool fg(job_t* j){
     return true;
 }
 
@@ -139,6 +167,7 @@ bool builtin_cmd(job_t *last_job, int argc, char **argv)
     }
     else if (!strcmp("cd", argv[0])) {
         chdir(argv[1]);
+        last_job->first_process->completed = true;
         return true;
     }
     else if (!strcmp("bg", argv[0])) {
@@ -209,7 +238,6 @@ int redirect_output(process_t* p){
     return fd0;
 }
 
-
 int main()
 {
 	init_dsh();
@@ -233,10 +261,9 @@ int main()
             first_job = j;
             first = false;
         }
+        //print_job(first_job);
         /* Only for debugging purposes to show parser output; turn off in the
          * final code */
-        //if(PRINT_INFO) print_job(j);
-        
         /* Your code goes here */
         /* You need to loop through jobs list since a command line can contain ;*/
         while(j!=NULL){

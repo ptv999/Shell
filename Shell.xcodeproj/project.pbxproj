@@ -19,6 +19,8 @@
 		ABC0561817FCFA8C005BE8DE /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560B17FCFA8C005BE8DE /* Makefile */; };
 		ABC0561917FCFA8C005BE8DE /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = ABC0560C17FCFA8C005BE8DE /* parse.c */; };
 		ABDF5D171800AABB00513277 /* Input_Test.c in Sources */ = {isa = PBXBuildFile; fileRef = ABDF5D161800AABB00513277 /* Input_Test.c */; };
+		ABDF5D1A1801588F00513277 /* infiniteLoop.c in Sources */ = {isa = PBXBuildFile; fileRef = ABDF5D191801588F00513277 /* infiniteLoop.c */; };
+		ABFFF5CF180212BA00B71F2C /* test2.c in Sources */ = {isa = PBXBuildFile; fileRef = ABFFF5CE180212BA00B71F2C /* test2.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +57,8 @@
 		ABC0560E17FCFA8C005BE8DE /* README.CONTENTS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.CONTENTS; sourceTree = "<group>"; };
 		ABDF5D161800AABB00513277 /* Input_Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Input_Test.c; sourceTree = "<group>"; };
 		ABDF5D181800AB6800513277 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
+		ABDF5D191801588F00513277 /* infiniteLoop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = infiniteLoop.c; sourceTree = "<group>"; };
+		ABFFF5CE180212BA00B71F2C /* test2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test2.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				ABC0560D17FCFA8C005BE8DE /* README */,
 				ABC0560E17FCFA8C005BE8DE /* README.CONTENTS */,
 				ABDF5D161800AABB00513277 /* Input_Test.c */,
+				ABDF5D191801588F00513277 /* infiniteLoop.c */,
+				ABFFF5CE180212BA00B71F2C /* test2.c */,
 			);
 			path = Shell;
 			sourceTree = "<group>";
@@ -182,6 +188,8 @@
 				ABC0561817FCFA8C005BE8DE /* Makefile in Sources */,
 				ABC0561917FCFA8C005BE8DE /* parse.c in Sources */,
 				ABDF5D171800AABB00513277 /* Input_Test.c in Sources */,
+				ABDF5D1A1801588F00513277 /* infiniteLoop.c in Sources */,
+				ABFFF5CF180212BA00B71F2C /* test2.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
