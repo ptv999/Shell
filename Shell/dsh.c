@@ -3,6 +3,7 @@
 void seize_tty(pid_t callingprocess_pgid); /* Grab control of the terminal for the calling process pgid.  */
 void continue_job(job_t *j); /* resume a stopped job */
 void spawn_job(job_t *j, bool fg); /* spawn a new job */
+job_t *first_job;
 
 /* Sets the process group id for a given job and process */
 int set_child_pgid(job_t *j, process_t *p)
@@ -52,27 +53,34 @@ void spawn_job(job_t *j, bool fg)
 {
 	pid_t pid;
 	process_t *p;
+    
 
 	for(p = j->first_process; p; p = p->next) {
 	  /* YOUR CODE HERE? */
 	  /* Builtin commands are already taken care earlier */
-	  
+        int input_fd = -1; //input_fd will have value -1 upon completion of switch if there is no input file
+        int output_fd = -1; //similar as input_fd but for output
 	  switch (pid = fork()) {
 
           case -1: /* fork failure */
             perror("fork");
             exit(EXIT_FAILURE);
-
           case 0: /* child process  */
             p->pid = getpid();	    
             new_child(j, p, fg);
-              
-            execvp(p->argv[0], p->argv);
             seize_tty(p->pid);
+            if(p->ifile!=NULL){
+                input_fd = redirect_input(p);
+            }
+            if(p->ofile!=NULL){
+                output_fd = redirect_output(p);
+            }
+            execvp(p->argv[0], p->argv);
               
 	    /* YOUR CODE HERE?  Child-side code for new process. */
             perror("New child should have done an exec");
             exit(EXIT_FAILURE);  /* NOT REACHED */
+            p->completed = false;
             break;    /* NOT REACHED */
 
           default: /* parent */
@@ -81,16 +89,23 @@ void spawn_job(job_t *j, bool fg)
             set_child_pgid(j, p);
             /* YOUR CODE HERE?  Parent-side code for new process.  */
             wait((int) pid);
-            
+            if(input_fd!=-1){
+                dup2(0,input_fd); //redirects input back to what it was before switches
+            }
+            if(output_fd!=-1){
+                dup2(1,output_fd); //redirects output back to what it was before switches
+            }
+            p->completed = true;
+            p->stopped = false;
           }
-            /* YOUR CODE HERE?  Parent-side code for new job.*/
+                    /* YOUR CODE HERE?  Parent-side code for new job.*/
 	    seize_tty(getpid()); // assign the terminal back to dsh
 
 	}
 }
 
-/* Sends SIGCONT signal to wake     up the blocked job */
-void continue_job(job_t *j) 
+/* Sends SIGCONT signal to wake up the blocked job */
+void continue_job(job_t *j)
 {
      if(kill(-j->pgid, SIGCONT) < 0)
           perror("kill(SIGCONT)");
@@ -118,22 +133,50 @@ bool builtin_cmd(job_t *last_job, int argc, char **argv)
             exit(EXIT_SUCCESS);
         }
         else if (!strcmp("jobs", argv[0])) {
-            print_job(last_job);
+            jobs(first_job);
             return true;
         }
         else if (!strcmp("cd", argv[0])) {
-            /* Your code here */
-        return true;
+            chdir(argv[1]);
+            return true;
         }
         else if (!strcmp("bg", argv[0])) {
             return true;
-        }
+        } 
         else if (!strcmp("fg", argv[0])) {
             return true;
         }
         return false;       /* not a builtin command */
 }
 
+bool builtin(job_t* j){
+    if(!strcmp(j->commandinfo, "jobs") || !strcmp(j->commandinfo, "cd") || !strcmp(j->commandinfo, "bg") || !strcmp(j->commandinfo, "fg")){
+        return true;
+    }
+    return false;
+}
+void jobs(job_t* j){
+    while(j!=NULL){
+        if(builtin(j) || j->notified){
+            j=j->next;
+            continue;
+        }
+        if(job_is_completed(j)){
+            printf("%d (completed): ", j->pgid);
+            printf("%s\n", j->commandinfo);
+            j->notified = true;
+        }
+        else if(job_is_stopped(j)){
+            printf("%d (stopped): ", j->pgid);
+            printf("%s\n", j->commandinfo);
+        }
+        else{
+            printf("%d (not completed): ", j->pgid);
+            printf("%s\n", j->commandinfo);
+        }
+        j = j->next;
+    }
+}
 /* Build prompt messaage */
 char* promptmsg() 
 {
@@ -144,26 +187,31 @@ char* promptmsg()
     strcpy(prompt_msg, "dsh-");
     strcat(prompt_msg, pid_string);
     strcat(prompt_msg, "$");
+    strcat(prompt_msg, " ");
     strcat(prompt_msg,"\0");
 	return prompt_msg;
 }
 
-/*void redirect_input(process_t* p){
+int redirect_input(process_t* p){
     char* fileName = p->ifile;
-    int stdinput = open(j.)
+    int fd0 = open(fileName, O_RDONLY);
+    dup2(fd0, 0);
+    return fd0;
+}
 
-    close(stdin);
-    int p_argc = p->argc;
-    char** p_argv = p->argv;
-    int stdin = open(fileName, p_argc, p_argv);
-    
-}*/
+int redirect_output(process_t* p){
+    char* fileName = p->ofile;
+    int fd0 = creat(fileName, S_IREAD | S_IWRITE);
+    dup2(fd0, 1);
+    return fd0;
+}
 
-int main() 
+
+int main()
 {
 	init_dsh();
 	DEBUG("Successfully initialized\n");
-
+    bool first = true;
 	while(1) {
         job_t *j = NULL;
 		if(!(j = readcmdline(promptmsg()))) {
@@ -174,7 +222,14 @@ int main()
            		}
 			continue; /* NOOP; user entered return or spaces with return */
 		}
-
+        if(!first){
+            job_t *lastjob = find_last_job(first_job);
+            lastjob->next = j;
+        }
+        else{
+            first_job = j;
+            first = false;
+        }
         /* Only for debugging purposes to show parser output; turn off in the
          * final code */
         //if(PRINT_INFO) print_job(j);
@@ -190,9 +245,6 @@ int main()
                     spawn_job(j, false);
                 }
             }
-            /*else{
-                while(
-            }*/
             j = j->next;
         }
     }
