@@ -61,7 +61,7 @@ void spawn_job(job_t *j, bool fg)
         /* Builtin commands are already taken care earlier */
         int input_fd = -1; //input_fd will have value -1 upon completion of switch if there is no input file
         int output_fd = -1; //similar as input_fd but for output
-
+        
         /*if there is an ofile, then it cannot pipe to the next process, since the process will always write everything
          to the outfile. Additionally, if there is no next process, then it cannot pipe*/
         if(p->ofile == NULL && p->next != NULL){
@@ -71,48 +71,48 @@ void spawn_job(job_t *j, bool fg)
             dup2(STDOUT_FILENO, fd[1]);
             //dup2(fd[1],0);
         }
-
-	  switch (pid = fork()) {
-              
-          case -1: /* fork failure */
-            perror("fork");
-            exit(EXIT_FAILURE);
-          case 0: /* child process  */
-            p->pid = getpid();	    
-            new_child(j, p, fg);
-            seize_tty(p->pid);
-            if(p->ifile!=NULL){
-                input_fd = redirect_input(p);
-            }
-            if(p->ofile!=NULL){
-                output_fd = redirect_output(p);
-            }
-            execvp(p->argv[0], p->argv);
-              
-	    /* YOUR CODE HERE?  Child-side code for new process. */
-            perror("New child should have done an exec");
-            exit(EXIT_FAILURE);  /* NOT REACHED */
-            p->completed = false;
-            break;    /* NOT REACHED */
-
-          default: /* parent */
-            /* establish child process group */
-            p->pid = pid;
-            set_child_pgid(j, p);
-            /* YOUR CODE HERE?  Parent-side code for new process.  */
-            wait((int) pid);
-            if(input_fd!=-1){
-                dup2(0,input_fd); //redirects input back to what it was before switches
-            }
-            if(output_fd!=-1){
-                dup2(1,output_fd); //redirects output back to what it was before switches
-            }
-            p->completed = true;
-            p->stopped = false;
-          }
-                    /* YOUR CODE HERE?  Parent-side code for new job.*/
+        
         switch (pid = fork()) {
-            
+                
+            case -1: /* fork failure */
+                perror("fork");
+                exit(EXIT_FAILURE);
+            case 0: /* child process  */
+                p->pid = getpid();
+                new_child(j, p, fg);
+                seize_tty(p->pid);
+                if(p->ifile!=NULL){
+                    input_fd = redirect_input(p);
+                }
+                if(p->ofile!=NULL){
+                    output_fd = redirect_output(p);
+                }
+                execvp(p->argv[0], p->argv);
+                
+                /* YOUR CODE HERE?  Child-side code for new process. */
+                perror("New child should have done an exec");
+                exit(EXIT_FAILURE);  /* NOT REACHED */
+                p->completed = false;
+                break;    /* NOT REACHED */
+                
+            default: /* parent */
+                /* establish child process group */
+                p->pid = pid;
+                set_child_pgid(j, p);
+                /* YOUR CODE HERE?  Parent-side code for new process.  */
+                wait((int) pid);
+                if(input_fd!=-1){
+                    dup2(0,input_fd); //redirects input back to what it was before switches
+                }
+                if(output_fd!=-1){
+                    dup2(1,output_fd); //redirects output back to what it was before switches
+                }
+                p->completed = true;
+                p->stopped = false;
+        }
+        /* YOUR CODE HERE?  Parent-side code for new job.*/
+        switch (pid = fork()) {
+                
             case -1: /* fork failure */
                 perror("fork");
                 exit(EXIT_FAILURE);
