@@ -1,0 +1,21 @@
+To Implement:
+
+
+fg
+When job is misspelled ignore and continue
+compiling and executing
+error logging
+
+
+Implemented, untested:
+
+input output redirection
+spawn_jobs (fix how 2nd job doesn't work)
+jobs
+
+
+Implemented, tested:
+
+promptmsg() shows PID
+quit
+cd
