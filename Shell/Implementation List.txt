@@ -5,6 +5,7 @@ fg
 When job is misspelled ignore and continue
 compiling and executing
 error logging
+pipes
 
 
 Implemented, untested:
