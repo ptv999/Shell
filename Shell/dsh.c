@@ -61,7 +61,7 @@ void spawn_job(job_t *j, bool fg)
         int input_fd = -1; //input_fd will have value -1 upon completion of switch if there is no input file
         int output_fd = -1; //similar as input_fd but for output
 	  switch (pid = fork()) {
-
+              
           case -1: /* fork failure */
             perror("fork");
             exit(EXIT_FAILURE);
