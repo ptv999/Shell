@@ -89,8 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				ABC0560C17FCFA8C005BE8DE /* parse.c */,
-				ABC055FC17FCFA8C005BE8DE /* batchFile */,
 				ABC055FD17FCFA8C005BE8DE /* dsh */,
+				ABC055FC17FCFA8C005BE8DE /* batchFile */,
 				ABC055FE17FCFA8C005BE8DE /* dsh-example */,
 				ABC0560117FCFA8C005BE8DE /* dsh.h */,
 				ABC055FF17FCFA8C005BE8DE /* dsh.c */,
